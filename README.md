@@ -137,7 +137,7 @@ Built using **React.js**, **Vite**, **Node.js**, **Express.js**, and **MongoDB w
 ```text
 Railconnect/
 ├── public/
-│   └── favicon.svg
+│   └── favicon.svg               # Application browser icon
 │
 ├── screenshots/                  # Project UI Screenshots
 │   ├── 01-homepage-hero.png
@@ -159,82 +159,188 @@ Railconnect/
 │
 ├── src/
 │   ├── api/
-│   │   ├── api.js                # Core API client & error handling
-│   │   ├── authApi.js            # Login & Register endpoints
-│   │   ├── trainApi.js           # Train CRUD & search endpoints
-│   │   ├── stationApi.js         # Station CRUD endpoints
-│   │   ├── passengerApi.js       # Passenger profile endpoints
-│   │   ├── bookingApi.js         # Booking & PNR endpoints
-│   │   ├── cancellationApi.js    # Cancellation endpoint
-│   │   ├── dashboardApi.js       # Admin aggregation stats endpoint
-│   │   └── notificationApi.js    # Notification endpoints
+│   │   ├── api.js                # Reusable fetch client with auth token & error handling
+│   │   ├── authApi.js            # POST /register, POST /login calls
+│   │   ├── trainApi.js           # GET /trains (search/filter/pagination), CRUD endpoints
+│   │   ├── stationApi.js         # GET /stations, POST, PUT, DELETE station endpoints
+│   │   ├── passengerApi.js       # GET /me, POST, PUT, DELETE passenger profile endpoints
+│   │   ├── bookingApi.js         # POST /bookings, GET /my, GET /history, GET /pnr/:pnr
+│   │   ├── cancellationApi.js    # POST /cancellations ticket cancellation endpoint
+│   │   ├── dashboardApi.js       # GET /dashboard/stats aggregation stats endpoint
+│   │   └── notificationApi.js    # GET /my, POST, PATCH /:id/read notification calls
 │   │
 │   ├── components/
-│   │   ├── common/               # Navbar, Sidebar, AdminSidebar, Modals, Badges
+│   │   ├── common/               # Navbar, Sidebar, AdminSidebar, Modals, Badges, Loaders
 │   │   ├── trains/               # TrainCard, TrainTable, SearchBar, Pagination
-│   │   ├── bookings/             # BookingCard
-│   │   ├── notifications/        # NotificationItem
+│   │   ├── bookings/             # BookingCard with cancellation modal trigger
+│   │   ├── notifications/        # NotificationItem with unread status highlight
 │   │   └── admin/                # TrainModal, StationModal, CreateNotificationModal
 │   │
 │   ├── context/
-│   │   ├── AuthContext.jsx       # Auth state & passenger profile status
-│   │   └── ToastContext.jsx      # Global toast notification provider
+│   │   ├── AuthContext.jsx       # State for token, user, role, passenger profile check
+│   │   └── ToastContext.jsx      # Global toast alerts (success, error, warning, info)
 │   │
 │   ├── hooks/
-│   │   ├── useAuth.js
-│   │   └── useToast.js
+│   │   ├── useAuth.js            # Custom hook for AuthContext
+│   │   └── useToast.js           # Custom hook for ToastContext
 │   │
 │   ├── layouts/
-│   │   ├── PublicLayout.jsx
-│   │   ├── PassengerLayout.jsx
-│   │   └── AdminLayout.jsx
+│   │   ├── PublicLayout.jsx      # Public navigation wrapper
+│   │   ├── PassengerLayout.jsx   # Passenger portal dashboard layout
+│   │   └── AdminLayout.jsx       # Admin console sidebar layout
 │   │
 │   ├── pages/
-│   │   ├── LandingPage.jsx
-│   │   ├── LoginPage.jsx
-│   │   ├── RegisterPage.jsx
-│   │   ├── DashboardPage.jsx
-│   │   ├── TrainsPage.jsx
-│   │   ├── TrainDetailPage.jsx
-│   │   ├── MyBookingsPage.jsx
-│   │   ├── PnrSearchPage.jsx
-│   │   ├── HistoryPage.jsx
-│   │   ├── ProfilePage.jsx
-│   │   ├── NotificationsPage.jsx
-│   │   ├── AdminDashboardPage.jsx
-│   │   ├── AdminTrainsPage.jsx
-│   │   ├── AdminStationsPage.jsx
-│   │   └── AccessDeniedPage.jsx
+│   │   ├── LandingPage.jsx       # SaaS landing page with hero, features & stats
+│   │   ├── LoginPage.jsx         # User login form with role redirect
+│   │   ├── RegisterPage.jsx      # Passenger registration form
+│   │   ├── DashboardPage.jsx     # Passenger dashboard with metrics & upcoming journey
+│   │   ├── TrainsPage.jsx        # Train search, status filter, sort & pagination
+│   │   ├── TrainDetailPage.jsx   # Train itinerary & ticket booking date selection
+│   │   ├── MyBookingsPage.jsx    # Active booking list & ticket cancellation
+│   │   ├── PnrSearchPage.jsx     # Live PNR status enquiry tool
+│   │   ├── HistoryPage.jsx       # Chronological travel journey history timeline
+│   │   ├── ProfilePage.jsx       # Passenger profile view, setup, edit & delete
+│   │   ├── NotificationsPage.jsx # System alerts & admin notification dispatch
+│   │   ├── AdminDashboardPage.jsx# MongoDB aggregation analytics console
+│   │   ├── AdminTrainsPage.jsx   # Admin train fleet management CRUD
+│   │   ├── AdminStationsPage.jsx # Admin railway station directory CRUD
+│   │   └── AccessDeniedPage.jsx  # 403 Access Denied security guard page
 │   │
 │   ├── styles/
-│   │   ├── variables.css
-│   │   ├── global.css
-│   │   └── layout.css
+│   │   ├── variables.css         # Color palette, shadows, font tokens
+│   │   ├── global.css            # Global resets, buttons, cards, toasts & modals
+│   │   └── layout.css            # Header, sidebar, grid & drawer responsive styles
 │   │
-│   ├── App.jsx                   # Central Router definition
-│   └── main.jsx                 # Entry point
+│   ├── App.jsx                   # Central React Router route definitions
+│   └── main.jsx                 # Application entry point
 │
 ├── server/
 │   ├── config/
-│   │   └── db.js                 # MongoDB connection config
-│   ├── controllers/              # Auth, trains, stations, bookings, etc.
-│   ├── middleware/               # Auth, Role, Error & Validation middleware
-│   ├── models/                   # User, Passenger, Station, Train, Booking, Cancellation, Notification
-│   ├── route/                    # Express API routes
-│   └── server.js                 # Express server entry point
+│   │   └── db.js                 # Mongoose connection logic to MongoDB
+│   │
+│   ├── controllers/
+│   │   ├── authController.js     # User registration, bcrypt hashing & JWT token sign
+│   │   ├── trainController.js    # Train listing query filters, pagination & CRUD logic
+│   │   ├── stationController.js  # Station directory listing, create, edit & delete
+│   │   ├── passengerController.js# Passenger profile management logic
+│   │   ├── bookingController.js  # Ticket booking, PNR allocation, seat update & notification
+│   │   ├── cancellationController.js # Booking status update to cancelled & seat release
+│   │   ├── dashboardController.js# MongoDB aggregation pipeline ($lookup, $group, $match)
+│   │   └── notificationController.js # User notifications fetch, create & mark as read
+│   │
+│   ├── middleware/
+│   │   ├── authMiddleware.js     # JWT Authorization header verification middleware
+│   │   ├── roleMiddleware.js     # Role authorization guard (Admin, Passenger, Staff)
+│   │   ├── validate.js           # Required request body field validation middleware
+│   │   └── errorMiddleware.js    # Global Express exception handling middleware
+│   │
+│   ├── models/
+│   │   ├── User.js               # User schema (name, email, password, role)
+│   │   ├── Passenger.js          # Passenger profile schema (user ref, age, gender, phone)
+│   │   ├── Station.js            # Station schema (name, code, city, state)
+│   │   ├── Train.js              # Train route schema (trainNumber, source, destination, seats, status)
+│   │   ├── Booking.js            # Ticket booking schema (passenger, train, PNR, seatNumber, journeyDate)
+│   │   ├── Cancellation.js       # Ticket cancellation record schema (booking, reason, refund)
+│   │   └── Notification.js       # System notification schema (user, title, message, type, isRead)
+│   │
+│   ├── route/
+│   │   ├── authRoutes.js         # API routes for POST /register, POST /login
+│   │   ├── trainRoutes.js        # API routes for GET, POST, PUT, DELETE /api/trains
+│   │   ├── stationRoutes.js      # API routes for GET, POST, PUT, DELETE /api/stations
+│   │   ├── passengerRoutes.js    # API routes for GET, POST, PUT, DELETE /api/passengers
+│   │   ├── bookingRoutes.js      # API routes for POST, GET /my, GET /history, GET /pnr/:pnr
+│   │   ├── cancellationRoutes.js # API routes for POST /api/cancellations
+│   │   ├── dashboardRoutes.js    # API routes for GET /api/dashboard/stats
+│   │   └── notificationRoutes.js # API routes for GET, POST, PATCH /api/notifications
+│   │
+│   └── server.js                 # Express application initialization & middleware setup
 │
-├── .env.example
-├── .gitignore
-├── index.html
-├── package.json
-├── package-lock.json
-├── vite.config.js
-└── README.md
+├── .env.example                  # Environment variable template
+├── .gitignore                    # Git ignore file configuration
+├── index.html                    # HTML root page template
+├── package.json                  # Root dependencies & scripts
+├── package-lock.json             # Locked dependency tree
+├── vite.config.js                # Vite bundler configuration & backend proxy setup
+└── README.md                     # Project documentation
 ```
 
 ---
 
-## Contributing
+## Backend Architecture & Folder Breakdown
+
+The `server/` directory follows the standard **Model-View-Controller (MVC) Design Pattern** (separated API design) built with Node.js, Express.js, and MongoDB (via Mongoose). Here is an in-depth breakdown of each folder and its role in the system:
+
+### 1. `server/server.js` (Server Entry Point)
+- Initializes the Express application.
+- Configures global middleware: CORS support, JSON body parsing (`express.json()`).
+- Establishes connection with MongoDB using `connectDB()`.
+- Mounts all top-level API routes (`/api/auth`, `/api/trains`, `/api/stations`, `/api/passengers`, `/api/bookings`, `/api/cancellations`, `/api/dashboard`, `/api/notifications`).
+- Registers global error handling middleware (`errorMiddleware`).
+- Listens for incoming HTTP requests on host `0.0.0.0` and port `5000`.
+
+### 2. `server/config/` (Configuration Layer)
+- **`db.js`**: Contains the MongoDB database connection module using `mongoose.connect()`. Reads `MONGO_URI` from the environment file (`.env`) with fallback connection string. Logs successful database connections or terminates execution on failure.
+
+### 3. `server/models/` (Data Models & Mongoose Schemas)
+Defines the database structural schema, field data types, relationships (`ref`), default values, and constraints:
+- **`User.js`**: Stores user authentication credentials (name, email, hashed password, role: `passenger`/`admin`/`staff`).
+- **`Passenger.js`**: Stores detailed passenger profiles linked to `User` via ObjectId reference (age, gender, phone, address).
+- **`Station.js`**: Contains railway station directory records (station name, unique code, city, state).
+- **`Train.js`**: Fleet management schema containing train numbers, name, source station, destination station, departure/arrival times, total & available seat counts, price, and operational status (`scheduled`, `in_transit`, `delayed`, `cancelled`).
+- **`Booking.js`**: Core ticket booking record linking passenger and train. Includes auto-generated unique PNR code, seat assignment, journey date, status (`confirmed`/`cancelled`), and total fare.
+- **`Cancellation.js`**: Audit trail of cancelled tickets storing original booking reference, cancellation reason, refund calculated amount, and timestamp.
+- **`Notification.js`**: System and admin alert message model linked to target users (or broadcast to all), storing alert type (`booking`, `cancellation`, `system`, `broadcast`), title, message body, and `isRead` boolean toggle.
+
+### 4. `server/controllers/` (Business Logic Layer)
+Handles incoming request data, performs validations, executes database queries, processes data, and returns standard HTTP responses:
+- **`authController.js`**: Manages user registration (`POST /register`), password hashing with `bcryptjs`, login authentication (`POST /login`), and JWT token generation.
+- **`trainController.js`**: Implements train route listing, search querying, status filtering, multi-field sorting, pagination logic, and full admin CRUD operations.
+- **`stationController.js`**: Handles railway station creation, lookup, updates, and deletion.
+- **`passengerController.js`**: Handles fetching current user passenger profile (`GET /me`), profile creation, updates, and deletion.
+- **`bookingController.js`**: Contains ticket reservation algorithm: verifies train seat availability, computes total fare, deducts available seats atomically on `Train`, generates a unique PNR, creates a `Booking` record, and dispatches a confirmation notification. Also includes live PNR enquiry lookup and journey history timeline aggregation.
+- **`cancellationController.js`**: Processes ticket cancellations: updates booking status to `cancelled`, increments available seats back on `Train`, logs a `Cancellation` record, and sends a cancellation alert notification.
+- **`dashboardController.js`**: Executes MongoDB Aggregation Pipelines (`$match`, `$lookup`, `$group`, `$sort`, `$unwind`) to compute real-time system metrics (total users, fleet count, active vs cancelled bookings breakdown, revenue stats) for the Admin Dashboard.
+- **`notificationController.js`**: Handles fetching passenger notifications (`GET /my`), marking notifications as read (`PATCH /:id/read`), and administrative alert broadcasts (`POST /`).
+
+### 5. `server/middleware/` (Security & Request Interceptors)
+Middleware functions execute before requests reach controller handlers:
+- **`authMiddleware.js`**: Extracts JWT token from HTTP `Authorization: Bearer <token>` header, verifies token validity using `jwt.verify()`, and attaches decoded user payload (`req.user`) to request object.
+- **`roleMiddleware.js`**: Role-Based Access Control (RBAC) guard verifying if `req.user.role` matches allowed roles (e.g. enforcing `admin` role for management routes).
+- **`validate.js`**: Input sanitizer checking mandatory body parameters before database interaction.
+- **`errorMiddleware.js`**: Centralized error handler returning consistent JSON responses `{ success: false, error: message }` with appropriate HTTP status codes (400, 401, 403, 404, 500).
+
+### 6. `server/route/` (API Router Layer)
+Maps RESTful HTTP endpoints to specific controller functions and attaches authorization guards:
+- **`authRoutes.js`**: Routes for `/api/auth/register` and `/api/auth/login`.
+- **`trainRoutes.js`**: Public routes for searching trains (`GET /api/trains`) and protected admin routes for managing fleet (`POST`, `PUT`, `DELETE`).
+- **`stationRoutes.js`**: Directory search and admin station management routes.
+- **`passengerRoutes.js`**: Protected user profile routes (`GET /api/passengers/me`).
+- **`bookingRoutes.js`**: Ticket booking (`POST /api/bookings`), user bookings (`GET /api/bookings/my`), PNR query (`GET /api/bookings/pnr/:pnr`), and travel history (`GET /api/bookings/history`).
+- **`cancellationRoutes.js`**: Ticket cancellation route (`POST /api/cancellations`).
+- **`dashboardRoutes.js`**: Admin analytics route (`GET /api/dashboard/stats`).
+- **`notificationRoutes.js`**: User alerts (`GET /api/notifications/my`), mark read (`PATCH /api/notifications/:id/read`), and broadcast (`POST /api/notifications`).
+
+---
+
+### Request-Response Data Flow
+```text
+HTTP Request (Client)
+      │
+      ▼
+Express Router (server/route/)
+      │
+      ▼
+Middleware Guards (server/middleware/) -> Auth check (JWT) & Role authorization
+      │
+      ▼
+Controller Logic (server/controllers/) -> Business logic & validation
+      │
+      ▼
+Mongoose Model (server/models/) ---------> MongoDB Database (Queries/Aggregations)
+      │
+      ▼
+JSON Response (Client)
+```
 
 Contributions are welcome! If you have suggestions, bug reports, or feature requests, feel free to open an issue or submit a pull request.
 
