@@ -33,13 +33,7 @@ Built using **React.js**, **Vite**, **Node.js**, **Express.js**, and **MongoDB w
     JWT_SECRET=railconnectsecret
     ```
 
-- **4. Seed Default Admin Credentials (Optional):**
-  ```bash
-  node server/seedAdmin.js
-  ```
-  *(Default Admin: `admin@railconnect.com` / Password: `adminpassword`)*
-
-- **5. Run the Project:**
+- **4. Run the Project:**
   - **Start Backend Server:**
     ```bash
     node server/server.js
@@ -227,7 +221,6 @@ Railconnect/
 │   ├── middleware/               # Auth, Role, Error & Validation middleware
 │   ├── models/                   # User, Passenger, Station, Train, Booking, Cancellation, Notification
 │   ├── route/                    # Express API routes
-│   ├── seedAdmin.js              # Script to seed default admin credentials
 │   └── server.js                 # Express server entry point
 │
 ├── .env.example
