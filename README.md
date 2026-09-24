@@ -1,4 +1,4 @@
-# 🚂 RailConnect
+# RailConnect
 
 > **Smart Railway Operations & Passenger Management Platform**
 
@@ -8,7 +8,7 @@ Built using **React.js**, **Vite**, **Node.js**, **Express.js**, and **MongoDB w
 
 ---
 
-## 🚀 For Running This Project Follow The Commands Below
+## For Running This Project Follow The Commands Below
 
 - **1. Clone the Repository:**
   ```bash
@@ -54,7 +54,7 @@ Built using **React.js**, **Vite**, **Node.js**, **Express.js**, and **MongoDB w
 
 ---
 
-# 📸 Screenshots
+# Screenshots
 
 ### **Homepage & Landing Page**
 ![Homepage Hero](./screenshots/01-homepage-hero.png)
@@ -84,10 +84,11 @@ Built using **React.js**, **Vite**, **Node.js**, **Express.js**, and **MongoDB w
 ![Admin Dashboard Aggregation](./screenshots/13-admin-dashboard.png)
 ![Admin Train Management](./screenshots/14-admin-trains.png)
 ![Admin Station Directory](./screenshots/15-admin-stations.png)
+![Admin Broadcast Notification Modal](./screenshots/16-admin-broadcast-modal.png)
 
 ---
 
-## ✨ Key Features & Highlights
+## Key Features & Highlights
 
 1. **Advanced Train Search, Filtering, Sorting & Pagination**
    - Search by train name or train number.
@@ -113,7 +114,7 @@ Built using **React.js**, **Vite**, **Node.js**, **Express.js**, and **MongoDB w
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### **Frontend**
 - React.js (v18)
@@ -137,7 +138,7 @@ Built using **React.js**, **Vite**, **Node.js**, **Express.js**, and **MongoDB w
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 Railconnect/
@@ -145,6 +146,22 @@ Railconnect/
 │   └── favicon.svg
 │
 ├── screenshots/                  # Project UI Screenshots
+│   ├── 01-homepage-hero.png
+│   ├── 02-homepage-features.png
+│   ├── 03-login-page.png
+│   ├── 04-register-page.png
+│   ├── 05-passenger-dashboard.png
+│   ├── 06-passenger-profile.png
+│   ├── 07-train-search.png
+│   ├── 08-train-booking.png
+│   ├── 09-my-bookings.png
+│   ├── 10-pnr-search.png
+│   ├── 11-journey-history.png
+│   ├── 12-notifications.png
+│   ├── 13-admin-dashboard.png
+│   ├── 14-admin-trains.png
+│   ├── 15-admin-stations.png
+│   └── 16-admin-broadcast-modal.png
 │
 ├── src/
 │   ├── api/
@@ -224,7 +241,7 @@ Railconnect/
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! If you have suggestions, bug reports, or feature requests, feel free to open an issue or submit a pull request.
 
@@ -236,13 +253,13 @@ Contributions are welcome! If you have suggestions, bug reports, or feature requ
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the [MIT License](LICENSE). Feel free to modify and distribute it as per terms of the license.
 
 ---
 
-## 🙌 Acknowledgements
+## Acknowledgements
 
 We would like to acknowledge the following resources used in the development of this project:
 - React.js & Vite
@@ -253,7 +270,7 @@ We would like to acknowledge the following resources used in the development of 
 
 ---
 
-## 📬 Contact
+## Contact
 
 For any inquiries or questions, please reach out to:
 - **Project Maintainer**: Vyom Shah ([vyomshah14](https://github.com/vyomshah14))
